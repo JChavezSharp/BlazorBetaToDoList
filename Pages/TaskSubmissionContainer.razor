@@ -1,0 +1,22 @@
+<div class="row align-items-center">
+    <div class="col-sm-7">
+        <input type="text" class="form-control" required placeholder="What task is up next?" @bind-value="@NewTaskName">
+    </div>
+    <div class="col-sm">
+        <button class="btn btn-primary" @onclick="SubmitTask">Add new task</button>
+    </div>
+</div>
+
+@code
+{
+    public string NewTaskName {get; set;} = "";
+
+    [Parameter]
+    public EventCallback<string> OnTaskSubmission {get; set;}
+    
+    private void SubmitTask()
+    {
+        OnTaskSubmission.InvokeAsync(NewTaskName);
+        NewTaskName = "";
+    }
+}

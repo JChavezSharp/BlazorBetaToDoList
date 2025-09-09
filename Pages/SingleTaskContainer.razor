@@ -1,0 +1,40 @@
+@using ToDoClasses
+
+
+<tr class="">
+    <td class="">
+        <input type="checkbox" class="form-check-input">
+    </td>
+    <td class="">
+        <h3>@TaskName</h3>
+    </td>
+    <td class="">
+        <button class="btn btn-outline-danger" @onclick="DeleteTask">Delete</button>
+    </td>
+</tr>
+
+
+@code
+{
+    public string TaskName {get; set;}
+    [Parameter]
+    public ToDoTask SingleTask {get; set;}
+    [Parameter]
+    public EventCallback<ToDoTask> OnTaskDelete {get; set;}
+
+    protected override void OnParametersSet()
+    {
+        if (SingleTask.TaskName == null)
+        {
+            TaskName = "invalid task";
+        }
+        else
+        {
+            TaskName = SingleTask.TaskName;
+        }
+    }
+    public void DeleteTask()
+    {
+        OnTaskDelete.InvokeAsync(SingleTask);
+    }
+}

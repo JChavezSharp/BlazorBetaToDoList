@@ -1,0 +1,25 @@
+@using ToDoClasses
+
+<div class="d-flex flex-column mb-3">
+    <div class="p-2">
+        <TaskSubmissionContainer OnTaskSubmission="AddNewTask"/>
+    </div>
+    <div class="p-2">
+        <TaskListContainer TaskList="@TaskList"/>
+    </div>
+</div>
+
+@code 
+{
+    public List<ToDoTask>? TaskList; 
+    protected override void OnInitialized()
+    {
+        TaskList = new List<ToDoTask>{};
+    }
+
+    private void AddNewTask(string taskName)
+    {
+        TaskList.Add(new ToDoTask(taskName));
+    }
+
+}

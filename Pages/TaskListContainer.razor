@@ -1,0 +1,34 @@
+@using ToDoClasses
+
+@if (TaskList == null)
+{
+    <p><em>Tasks Loading</em></p>
+}
+else if(TaskList.Count == 0)
+{
+    <p>No tasks at the moment ☺️! <br>
+        Why not try adding a new task?
+    </p>
+}
+else
+{
+    <table class="table table-striped">
+        <tbody>
+            @foreach(var singleTask in TaskList)
+            {
+                <SingleTaskContainer SingleTask="@singleTask" OnTaskDelete="DeleteTask"/>
+            }
+        </tbody>
+    </table>
+}
+
+@code 
+{
+    [Parameter]
+    public List<ToDoTask>? TaskList {get; set;}
+
+    public void DeleteTask(ToDoTask task)
+    {
+        TaskList.Remove(task);
+    }
+}
